@@ -1,0 +1,6 @@
+.alert {
+  position: fixed;
+  margin: 0 auto;
+  top: 50%;
+  z-index: var(--z-2);
+}
