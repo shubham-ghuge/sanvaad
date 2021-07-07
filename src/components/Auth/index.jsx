@@ -4,10 +4,10 @@ import "./auth.css";
 
 function Auth() {
   return (
-    <div className="auth-container">
-      <div className="img-gradient"></div>
+    <>
+      {/* <div className="img-gradient"></div> */}
       <Outlet />
-    </div>
+    </>
   );
 }
 export { Auth };
