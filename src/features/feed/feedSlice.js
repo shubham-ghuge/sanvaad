@@ -65,7 +65,6 @@ export const feedSlice = createSlice({
         },
         [commentOnPost.fulfilled]: (state, action) => {
             state.message = action.payload.message;
-            console.log(action.payload.response);
             state.loading = false;
         },
         [commentOnPost.rejected]: (state) => {

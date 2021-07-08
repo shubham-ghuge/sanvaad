@@ -9,6 +9,7 @@ import { Notification } from "./components/Notifications";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Profile } from "./components/Profile";
 import { UserPosts } from "./components/userPosts";
+import { Post } from "./components/Post";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <PrivateRoute path="/explore" element={<Explore />} />
           <PrivateRoute path="/profile" element={<Profile />} />
           <PrivateRoute path="/posts" element={<UserPosts />} />
+          <PrivateRoute path="/posts/:postId" element={<Post />} />
         </Route>
       </Routes>
     </div>

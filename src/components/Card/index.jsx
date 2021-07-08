@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import {
   commentOnPost,
   incrementCommentCount,
 } from "../../features/feed/feedSlice";
 
 function Card({ name, data: { text, _id, comments, likes, support } }) {
+  let navigate = useNavigate();
   const [showComment, setShowComment] = useState(false);
   const [commentInput, setCommentInput] = useState("");
   const dispatch = useDispatch();
@@ -17,7 +19,10 @@ function Card({ name, data: { text, _id, comments, likes, support } }) {
     setShowComment(false);
   }
   return (
-    <div className="flex-column w-30 my-4">
+    <div
+      className="flex-column w-30 my-4"
+      onClick={() => navigate(`/posts/${_id}`)}
+    >
       <h3>
         <span>{name} </span>
         {text}
