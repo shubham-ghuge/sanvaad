@@ -40,7 +40,6 @@ export const postSlice = createSlice({
             state.support = support.length;
             state.likes = likes.length;
             state.comments = comments;
-            state.fetchedPosts.push(action.payload.response);
             state.loading = false;
         },
         [getThePost.rejected]: (state) => {

@@ -17,7 +17,10 @@ export const exploreSlice = createSlice({
     initialState,
     reducers: {
         searchUser: (state, action) => {
-            state.user = null
+            state.users = state.users.filter(i => i.name.toLowerCase().includes(action.payload.toLowerCase()));
+        },
+        setUsers: (state, action) => {
+            state.users = action.payload
         }
     },
     extraReducers: {

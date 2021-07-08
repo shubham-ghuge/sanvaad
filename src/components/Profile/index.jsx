@@ -19,7 +19,7 @@ function Profile() {
           <h3>name {profileData.name}</h3>
           <h3>Email {profileData.email}</h3>
           <h3>posts {profileData.posts}</h3>
-          <h3>followers {profileData.followers}</h3>
+          <h3>followers {profileData.followers.length}</h3>
         </>
       )}
     </>

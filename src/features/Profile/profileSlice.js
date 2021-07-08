@@ -19,7 +19,7 @@ const initialState = {
     profileData: {
         name: "",
         email: "",
-        followers: 0,
+        followers: [],
         posts: 0
     },
     userPosts: {
@@ -39,7 +39,7 @@ export const profileSlice = createSlice({
             const { name, email, posts, followers } = action.payload.response;
             state.profileData.name = name;
             state.profileData.email = email;
-            state.profileData.followers = followers.length;
+            state.profileData.followers = followers;
             state.profileData.posts = posts.length;
             state.loading = false;
         },
