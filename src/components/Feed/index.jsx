@@ -9,7 +9,6 @@ function Feed() {
   useEffect(() => {
     dispatch(loadPosts());
   }, []);
-  console.log(posts);
   function postFormHandler(event) {
     event.preventDefault();
     dispatch(createPost(userInput));

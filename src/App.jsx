@@ -3,9 +3,12 @@ import { Route, Routes } from "react-router";
 import "./App.css";
 import { Auth } from "./components/Auth";
 import { Login, Register } from "./components/Auth/components";
+import { Explore } from "./components/Explore";
 import { Feed } from "./components/Feed";
 import { Notification } from "./components/Notifications";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { Profile } from "./components/Profile";
+import { UserPosts } from "./components/userPosts";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <PrivateRoute path="/feed" element={<Feed />} />
           <PrivateRoute path="/notifications" element={<Notification />} />
+          <PrivateRoute path="/explore" element={<Explore />} />
+          <PrivateRoute path="/profile" element={<Profile />} />
+          <PrivateRoute path="/posts" element={<UserPosts />} />
         </Route>
       </Routes>
     </div>
