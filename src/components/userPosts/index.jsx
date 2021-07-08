@@ -8,18 +8,19 @@ function UserPosts() {
   useEffect(() => {
     dispatch(getUsersPosts());
   }, []);
-  console.log(userPosts);
   return (
     <>
       {loading && "loading..."}
       <h1>Your Posts</h1>
       {userPosts &&
-        userPosts.posts.map((j) => (
-          <h3 key={j._id}>
-            <span>{userPosts.name} </span>
-            {j.text}
-          </h3>
-        ))}
+        userPosts.posts
+          .map((j) => (
+            <h3 key={j._id}>
+              <span>{userPosts.name} </span>
+              {j.text}
+            </h3>
+          ))
+          .reverse()}
     </>
   );
 }

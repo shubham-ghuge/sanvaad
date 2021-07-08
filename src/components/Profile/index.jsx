@@ -7,7 +7,7 @@ function Profile() {
   const { loading, profileData } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    dispatch(getProfileData());
+    profileData.name === "" && dispatch(getProfileData());
   }, []);
 
   return (

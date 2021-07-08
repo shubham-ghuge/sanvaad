@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import "./alert.css";
 
-function Alert({ onClose, message }) {
+function Alert({ onClose, message, color = "danger" }) {
   useEffect(() => {
     setTimeout(() => {
       onClose();
     }, 3000);
   }, []);
-  const color = message.includes("success") ? "success" : "danger";
+  color = (message.includes("success") && "success") || color;
 
   return (
     <div className="alert d-flex jc-center">
