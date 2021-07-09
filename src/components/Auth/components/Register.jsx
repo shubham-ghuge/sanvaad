@@ -40,13 +40,16 @@ function Register() {
 
   return (
     <div className="auth-form">
-      {message && (
-        <Alert message={message} onClose={() => dispatch(setMessage(null))} />
-      )}
-      <h3 className="title">Register</h3>
       <form onSubmit={(e) => registerFormHandler(e)}>
+        <div className="d-flex ai-center mb-7">
+          <img src="../src/assets/logo.svg" className="h-10" alt="logo" />
+          <p className="c-white fw-600 ml-4 fsz-3">SANVAAD</p>
+        </div>
+        {message && (
+          <Alert message={message} onClose={() => dispatch(setMessage(null))} />
+        )}
         <label>
-          name
+          <span>name</span>
           <input
             type="text"
             placeholder="john doe"
@@ -61,7 +64,7 @@ function Register() {
           )}
         </label>
         <label>
-          email
+          <span>email</span>
           <input
             type="email"
             placeholder="john@google.co"
@@ -73,7 +76,8 @@ function Register() {
           />
         </label>
         <label>
-          password
+          <span>password</span>
+
           <input
             type="password"
             placeholder="enter password"
@@ -90,7 +94,7 @@ function Register() {
           )}
         </label>
         <label>
-          confirm password
+          <span>confirm password</span>
           <input
             type="password"
             placeholder="verify password"
@@ -112,13 +116,13 @@ function Register() {
         <button type="submit" className="btn-primary mb-4">
           {loading ? "signing in..." : "Register"}
         </button>
+        <p className="d-flex c-white ai-center">
+          Already Have an account?{" "}
+          <Link className="ml-2" to="/">
+            Log in
+          </Link>
+        </p>
       </form>
-      <p className="d-flex ai-center">
-        Already Have an account?{" "}
-        <Link className="ml-2" to="/">
-          Log in
-        </Link>
-      </p>
     </div>
   );
 }

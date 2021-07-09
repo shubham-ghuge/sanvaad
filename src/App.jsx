@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import "./App.css";
 import { Auth } from "./components/Auth";
 import { Login, Register } from "./components/Auth/components";
@@ -10,8 +10,20 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { Profile } from "./components/Profile";
 import { UserPosts } from "./components/userPosts";
 import { Post } from "./components/Post";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { logout } = useSelector((state) => state.auth);
+  let navigate = useNavigate();
+  axios.interceptors.response.use(undefined, function (error) {
+    if (error.response.status === 401) {
+      logout();
+      navigate("/");
+    }
+    return Promise.reject(error);
+  });
+
   return (
     <div className="App">
       <Routes>
@@ -23,7 +35,7 @@ function App() {
           <PrivateRoute path="/explore" element={<Explore />} />
           <PrivateRoute path="/profile" element={<Profile />} />
           <PrivateRoute path="/posts" element={<UserPosts />} />
-          <PrivateRoute path="/posts/:postId" element={<Post />} />
+          <PrivateRoute path="/feed/:postId" element={<Post />} />
         </Route>
       </Routes>
     </div>

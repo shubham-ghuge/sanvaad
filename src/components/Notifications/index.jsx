@@ -10,11 +10,22 @@ function Notification() {
     dispatch(getNotifications());
   }, []);
   return (
-    <>
-      {loading && "loading"}
-      <h1>Notifications</h1>
-      {notifications && notifications.map((i, idx) => <h4 key={idx}>{i}</h4>)}
-    </>
+    <div className="p-4">
+      <h3 className="c-white fsz-2 ml-5">Notifications</h3>
+      {loading ? (
+        <span className="loader"></span>
+      ) : notifications.length === 0 ? (
+        <h2 className="c-white fsz-2">0 notifications</h2>
+      ) : (
+        notifications
+          .map((i, idx) => (
+            <div className="comment" key={idx}>
+              {i}
+            </div>
+          ))
+          .reverse()
+      )}
+    </div>
   );
 }
 export { Notification };

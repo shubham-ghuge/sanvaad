@@ -4,7 +4,7 @@ import axios from "axios";
 const SERVER_URL = "https://sanvaad.herokuapp.com"
 
 export const getProfileData = createAsyncThunk('profile/getProfileData', async () => {
-    const { data } = await axios.get(SERVER_URL + "/users/data")
+    const { data } = await axios.get(SERVER_URL + "/users/profile")
     return data;
 });
 

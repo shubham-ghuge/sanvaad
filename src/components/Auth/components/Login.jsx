@@ -34,26 +34,31 @@ function Login() {
 
   return (
     <div className="auth-form">
-      {message && (
-        <Alert message={message} onClose={() => dispatch(setMessage(null))} />
-      )}
-      <h3 className="title">Login</h3>
       <form onSubmit={(e) => loginFormHandler(e)}>
+        {message && (
+          <Alert message={message} onClose={() => dispatch(setMessage(null))} />
+        )}
+        <div className="d-flex ai-center mb-7">
+          <img src="../src/assets/logo.svg" className="h-10" alt="logo" />
+          <p className="c-white fw-600 ml-4 fsz-3">SANVAAD</p>
+        </div>
         <label>
-          email
+          <span> Email </span>
           <input
             type="email"
             value={userInput.email}
             onChange={(e) =>
               setUserInput((curr) => ({ ...curr, email: e.target.value }))
             }
+            placeholder="johndoe@gmail.com"
             required
           />
         </label>
         <label>
-          password
+          <span>password</span>
           <input
             type="password"
+            placeholder="*******"
             value={userInput.password}
             onChange={(e) =>
               setUserInput((curr) => ({ ...curr, password: e.target.value }))
@@ -64,13 +69,13 @@ function Login() {
         <button type="submit" className="btn-primary mb-4">
           {loading ? "logging in..." : "Login"}
         </button>
+        <p className="d-flex ai-center c-white jc-center">
+          new here?
+          <Link className="ml-2" to="/register">
+            Register Now
+          </Link>
+        </p>
       </form>
-      <p className="d-flex ai-center jc-center">
-        new here?
-        <Link className="ml-2" to="/register">
-          Register Now
-        </Link>
-      </p>
     </div>
   );
 }

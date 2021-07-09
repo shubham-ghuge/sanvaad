@@ -5,8 +5,16 @@ import {
   commentOnPost,
   incrementCommentCount,
 } from "../../features/feed/feedSlice";
+import { FaHandsHelping, FaRegUserCircle } from "react-icons/fa";
+import { BiCommentDots } from "react-icons/bi";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { RiSendPlaneFill } from "react-icons/ri";
 
-function Card({ name, data: { text, _id, comments, likes, support } }) {
+function Card({
+  name,
+  data: { text, _id, comments, likes, support },
+  lock = false,
+}) {
   let navigate = useNavigate();
   const [showComment, setShowComment] = useState(false);
   const [commentInput, setCommentInput] = useState("");
@@ -19,35 +27,50 @@ function Card({ name, data: { text, _id, comments, likes, support } }) {
     setShowComment(false);
   }
   return (
-    <div
-      className="flex-column w-30 my-4"
-      onClick={() => navigate(`/posts/${_id}`)}
-    >
-      <h3>
-        <span>{name} </span>
-        {text}
-      </h3>
-      <div className="d-flex mt-2 jc-space-between">
-        <button className="btn-primary" onClick={() => setShowComment(true)}>
-          comments {comments.length}
-        </button>
-        <p>likes {likes.length}</p>
-        <p>support {support.length}</p>
+    <div className="user-post">
+      <div className="header">
+        <FaRegUserCircle />
+        <p>{name}</p>
       </div>
-      {showComment && (
-        <div className="mt-3">
-          <form onSubmit={(e) => commentHandler(e)}>
-            <input
-              type="text"
-              value={commentInput}
-              onChange={(e) => setCommentInput(e.target.value)}
-              required
-            />
-            <button className="btn-primary" type="submit">
-              post
-            </button>
-          </form>
-        </div>
+      <p className="text" onClick={() => navigate(`/feed/${_id}`)}>
+        {text}
+      </p>
+      <div className="actions d-flex">
+        <button onClick={() => setShowComment((curr) => !curr)}>
+          <BiCommentDots />
+          <span className="c-white mr-2">{comments.length}</span>
+          <span className="text">comments</span>
+        </button>
+        <button>
+          <IoMdHeartEmpty />
+          <span className="c-white mr-2">{likes.length}</span>
+          <span className="text">likes</span>
+        </button>
+        <button>
+          <FaHandsHelping />
+          <span className="c-white mr-2">{support.length}</span>
+          <span className="text">support</span>
+        </button>
+      </div>
+      {showComment && !lock && (
+        <form
+          className="d-flex create-post"
+          onSubmit={(e) => commentHandler(e)}
+        >
+          <input
+            type="text"
+            value={commentInput}
+            onChange={(e) => setCommentInput(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="btn-primary d-flex jc-center ai-center"
+          >
+            <RiSendPlaneFill className="icon c-white" />
+            <span className="d-none d-sm-block">post</span>
+          </button>
+        </form>
       )}
     </div>
   );

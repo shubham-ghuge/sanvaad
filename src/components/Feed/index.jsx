@@ -7,6 +7,7 @@ import {
 } from "../../features/feed/feedSlice";
 import { Card } from "../Card";
 import { Alert } from "../Alert";
+import { RiSendPlaneFill } from "react-icons/ri";
 
 function Feed() {
   const dispatch = useDispatch();
@@ -23,10 +24,8 @@ function Feed() {
   }
 
   return (
-    <>
-      <h1>Your Feed</h1>
-      {loading && <h2>loading...</h2>}
-      <form onSubmit={(e) => postFormHandler(e)}>
+    <div className="flex-column feed">
+      <form className="d-flex create-post" onSubmit={(e) => postFormHandler(e)}>
         <input
           type="text"
           placeholder="what's happening"
@@ -36,14 +35,25 @@ function Feed() {
           }
           required
         />
-        <button type="submit">post</button>
+        <button
+          type="submit"
+          className="btn-primary d-flex jc-center ai-center"
+        >
+          <RiSendPlaneFill className="icon c-white" />
+          <span className="d-none d-sm-block">post</span>
+        </button>
       </form>
-      {posts &&
+      {loading ? (
+        <span className="loader"></span>
+      ) : posts.length === 0 ? (
+        <h3 className="fsz-2 c-white">No Feed Available, explore users!</h3>
+      ) : (
         posts.map((i) =>
           i.posts
             .map((j) => <Card name={i.name} key={j._id} data={j} />)
             .reverse()
-        )}
+        )
+      )}
       {message && (
         <Alert
           message={message}
@@ -51,7 +61,7 @@ function Feed() {
           onClose={() => dispatch(setMessage(null))}
         />
       )}
-    </>
+    </div>
   );
 }
 export { Feed };

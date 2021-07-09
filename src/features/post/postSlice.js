@@ -10,8 +10,8 @@ export const getThePost = createAsyncThunk('post/getThePost', async (postId) => 
 const initialState = {
     loading: false,
     text: "",
-    likes: 0,
-    support: 0,
+    likes: [],
+    support: [],
     comments: [],
     fetchedPosts: [],
     message: null
@@ -37,8 +37,8 @@ export const postSlice = createSlice({
         [getThePost.fulfilled]: (state, action) => {
             const { text, support, likes, comments } = action.payload.response;
             state.text = text;
-            state.support = support.length;
-            state.likes = likes.length;
+            state.support = support;
+            state.likes = likes;
             state.comments = comments;
             state.loading = false;
         },

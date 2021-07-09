@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersPosts } from "../../features/Profile/profileSlice";
+import { Card } from "../Card";
 
 function UserPosts() {
   const { loading, userPosts } = useSelector((state) => state.profile);
@@ -9,19 +10,20 @@ function UserPosts() {
     dispatch(getUsersPosts());
   }, []);
   return (
-    <>
-      {loading && "loading..."}
-      <h1>Your Posts</h1>
-      {userPosts &&
+    <div className="flex-column feed">
+      <h2 className="c-white text-center fsz-3">Your Posts</h2>
+      {loading ? (
+        <span className="loader"></span>
+      ) : userPosts.posts.length === 0 ? (
+        <h2 className="fsz-2">0 posts</h2>
+      ) : (
         userPosts.posts
           .map((j) => (
-            <h3 key={j._id}>
-              <span>{userPosts.name} </span>
-              {j.text}
-            </h3>
+            <Card name={userPosts.name} key={j._id} data={j} lock={true} />
           ))
-          .reverse()}
-    </>
+          .reverse()
+      )}
+    </div>
   );
 }
 export { UserPosts };
