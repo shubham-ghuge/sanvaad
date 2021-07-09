@@ -50,7 +50,6 @@ export const exploreSlice = createSlice({
             state.loading = false;
         },
         [followUser.fulfilled]: (state, action) => {
-            console.log(action.payload);
             state.message = action.payload.message;
         },
         [followUser.rejected]: (state, action) => {

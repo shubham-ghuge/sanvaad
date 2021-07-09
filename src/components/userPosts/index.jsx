@@ -15,7 +15,7 @@ function UserPosts() {
       {loading ? (
         <span className="loader"></span>
       ) : userPosts.posts.length === 0 ? (
-        <h2 className="fsz-2">0 posts</h2>
+        <h2 className="fsz-2 text-center c-white mt-7">0 posts, please share your thoughts!</h2>
       ) : (
         userPosts.posts
           .map((j) => (

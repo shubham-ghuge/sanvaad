@@ -11,14 +11,15 @@ import { Profile } from "./components/Profile";
 import { UserPosts } from "./components/userPosts";
 import { Post } from "./components/Post";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "./features/auth/authSlice";
 
 function App() {
-  const { logout } = useSelector((state) => state.auth);
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   axios.interceptors.response.use(undefined, function (error) {
     if (error.response.status === 401) {
-      logout();
+      dispatch(logout());
       navigate("/");
     }
     return Promise.reject(error);

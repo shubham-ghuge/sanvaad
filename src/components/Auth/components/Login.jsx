@@ -12,7 +12,7 @@ import { Alert } from "../../Alert";
 function Login() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const { token, loggedInStatus, loading, message } = useSelector(
+  const { loggedInStatus, loading, message } = useSelector(
     (state) => state.auth
   );
   const [userInput, setUserInput] = useState({ email: "", password: "" });
@@ -22,12 +22,15 @@ function Login() {
     dispatch(loginUser(userInput));
   }
   useEffect(() => {
-    dispatch(setToken());
+    const { isUserLoggedIn, token } =
+      JSON.parse(localStorage.getItem("login")) || {};
+    if (isUserLoggedIn) {
+      dispatch(setToken(token));
+    }
   }, []);
 
   useEffect(() => {
     if (loggedInStatus) {
-      axios.defaults.headers.common["Authorization"] = token;
       navigate("/feed");
     }
   }, [loggedInStatus]);
@@ -68,6 +71,14 @@ function Login() {
         </label>
         <button type="submit" className="btn-primary mb-4">
           {loading ? "logging in..." : "Login"}
+        </button>
+        <button
+          className="btn-reset c-white mb-4"
+          onClick={() =>
+            setUserInput({ email: "indianFarmer@work.india", password: "aaaaaa" })
+          }
+        >
+          Demo credentials
         </button>
         <p className="d-flex ai-center c-white jc-center">
           new here?

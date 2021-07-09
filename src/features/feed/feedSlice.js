@@ -13,13 +13,11 @@ export const createPost = createAsyncThunk("feed/creatPost", async (userThoughts
 })
 export const likePost = createAsyncThunk("feed/likePost", async (userActionPayload) => {
     const { postId, routeToTake } = userActionPayload;
-    console.log(userActionPayload);
     const { data } = await axios.post(`${SERVER_URL}/posts/${postId}/${routeToTake}`);
     return data;
 })
 
 export const commentOnPost = createAsyncThunk("feed/commentOnPost", async (commentData) => {
-    console.log(commentData);
     const { data } = await axios.post(SERVER_URL + "/comments", commentData);
     return data;
 })

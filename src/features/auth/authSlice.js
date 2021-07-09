@@ -16,7 +16,6 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userDetails) 
 const initialState = {
     loading: false,
     message: null,
-    token: null,
     loggedInStatus: false,
     success: false,
 }
@@ -28,12 +27,10 @@ export const AuthSlice = createSlice({
         setMessage: (state, action) => {
             state.message = action.payload;
         },
-        setToken: (state) => {
-            const { isUserLoggedIn, token } = JSON.parse(localStorage.getItem("login")) || {};
-            if (isUserLoggedIn) {
-                state.loggedInStatus = true;
-                state.token = token;
-            }
+        setToken: (state, action) => {
+            state.loggedInStatus = true;
+            state.token = action.payload;
+            axios.defaults.headers.common["Authorization"] = action.payload;
         },
         logout: (state) => {
             localStorage.removeItem("login");
@@ -63,6 +60,7 @@ export const AuthSlice = createSlice({
             if (success) {
                 localStorage.setItem("login", JSON.stringify({ token, isUserLoggedIn: true, userName }));
             }
+            axios.defaults.headers.common["Authorization"] = token;
             state.loggedInStatus = success;
             state.message = message;
             state.loading = false;

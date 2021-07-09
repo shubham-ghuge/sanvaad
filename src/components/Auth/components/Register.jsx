@@ -18,8 +18,8 @@ function Register() {
   function registerFormHandler(event) {
     event.preventDefault();
     const checkValidations =
-      userInput.name.length < 4 &&
-      userInput.password.length < 6 &&
+      userInput.name.length >= 4 &&
+      userInput.password.length >= 6 &&
       userInput.password === userInput.confirmPassword;
     if (checkValidations) {
       dispatch(
