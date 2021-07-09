@@ -2,16 +2,28 @@ import React, { useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, searchUser } from "../../features/explore/exploreSlice";
+import { Alert } from "../Alert";
+import {
+  followUser,
+  getUsers,
+  searchUser,
+  setMessage,
+  setUsers,
+} from "../../features/explore/exploreSlice";
 
 function Explore() {
   const dispatch = useDispatch();
-  const { loading, users } = useSelector((state) => state.explore);
+  const { loading, users, message } = useSelector((state) => state.explore);
   useEffect(() => {
     dispatch(getUsers());
   }, []);
   function findUser(event) {
     return dispatch(searchUser(event.target.value));
+  }
+  function followHandler(id) {
+    const data = { user: id };
+    dispatch(followUser(data));
+    dispatch(setUsers(id));
   }
   return (
     <>
@@ -39,11 +51,21 @@ function Explore() {
           <div className="user-list" key={idx}>
             <FaRegUserCircle />
             <p>{i.name}</p>
-            <button onClick={() => console.log(i._id)}>
+            <button
+              onClick={() => followHandler(i._id)}
+              className={`${i.following && "disable"}`}
+            >
               {i.following ? "following" : "follow"}
             </button>
           </div>
         ))
+      )}
+      {message && (
+        <Alert
+          message={message}
+          color="primary"
+          onClose={() => dispatch(setMessage(null))}
+        />
       )}
     </>
   );

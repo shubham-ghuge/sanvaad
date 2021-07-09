@@ -36,16 +36,18 @@ function Post() {
           >
             <TiArrowBackOutline className="fsz-1" />
           </button>
-          <Card data={postData} name="user name" />
+          <Card data={postData} lock={true} name="user name" />
           <p className="c-white ml-7 mt-4 fsz-1 fw-600">comments</p>
-          {comments.length === 0
-            ? <h3 className="text-sm c-white m-7">0 comments</h3>
-            : comments.map((i) => (
-                <div className="comment" key={i._id}>
-                  <FaRegUserCircle />
-                  <p>{i.text}</p>
-                </div>
-              ))}
+          {comments.length === 0 ? (
+            <h3 className="text-sm c-white m-7">0 comments</h3>
+          ) : (
+            comments.map((i) => (
+              <div className="comment" key={i._id}>
+                <FaRegUserCircle />
+                <p>{i.text}</p>
+              </div>
+            ))
+          )}
         </div>
       )}
     </>

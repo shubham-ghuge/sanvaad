@@ -15,6 +15,9 @@ body {
   background-color: var(--c-primary-200) !important;
   border-radius: 50%;
 }
+.disable {
+  pointer-events: none;
+}
 
 .c-white {
   color: #fff !important;
@@ -114,7 +117,7 @@ header .icon {
   position: relative;
 }
 .notification .active > svg {
-  color: #fff!important;
+  color: #fff !important;
 }
 .feed {
   margin: 0 0 5rem;
@@ -286,6 +289,7 @@ header .icon {
     padding: var(--p-4) 3.5rem;
     box-sizing: border-box;
     margin: 0 auto 2rem;
+    border-radius: var(--br-2);
     width: 90%;
     font-weight: 600;
     align-items: center;

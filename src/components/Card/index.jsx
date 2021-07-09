@@ -3,11 +3,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import {
   commentOnPost,
-  incrementCommentCount,
+  incrementStatCount,
+  likePost,
 } from "../../features/feed/feedSlice";
 import { FaHandsHelping, FaRegUserCircle } from "react-icons/fa";
 import { BiCommentDots } from "react-icons/bi";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartHalf } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
 
 function Card({
@@ -22,9 +23,17 @@ function Card({
   function commentHandler(event) {
     event.preventDefault();
     dispatch(commentOnPost({ postId: _id, text: commentInput }));
-    dispatch(incrementCommentCount({ postId: _id }));
+    dispatch(incrementStatCount({ postId: _id, data: "comments" }));
     setCommentInput(" ");
     setShowComment(false);
+  }
+  function likeHandler() {
+    dispatch(likePost({ postId: _id, routeToTake: "likes" }));
+    dispatch(incrementStatCount({ postId: _id, data: "likes" }));
+  }
+  function supportHandler() {
+    dispatch(likePost({ postId: _id, routeToTake: "support" }));
+    dispatch(incrementStatCount({ postId: _id, data: "support" }));
   }
   return (
     <div className="user-post">
@@ -35,18 +44,18 @@ function Card({
       <p className="text" onClick={() => navigate(`/feed/${_id}`)}>
         {text}
       </p>
-      <div className="actions d-flex">
+      <div className={`actions d-flex ${lock && "disable"}`}>
         <button onClick={() => setShowComment((curr) => !curr)}>
           <BiCommentDots />
           <span className="c-white mr-2">{comments.length}</span>
           <span className="text">comments</span>
         </button>
-        <button>
-          <IoMdHeartEmpty />
+        <button onClick={likeHandler}>
+          <IoMdHeartHalf />
           <span className="c-white mr-2">{likes.length}</span>
           <span className="text">likes</span>
         </button>
-        <button>
+        <button onClick={supportHandler}>
           <FaHandsHelping />
           <span className="c-white mr-2">{support.length}</span>
           <span className="text">support</span>

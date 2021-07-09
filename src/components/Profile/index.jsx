@@ -4,6 +4,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfileData } from "../../features/Profile/profileSlice";
 import { HiOutlineUserGroup } from "react-icons/hi";
+import { logout } from "../../features/auth/authSlice";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function Profile() {
                   <FaRegUserCircle className="icon fsz-5 c-white" />
                   <p>{profileData.name}</p>
                 </div>
-                <button className="btn-primary d-flex ai-center">
+                <button className="btn-primary d-flex ai-center" onClick={()=>dispatch(logout())}>
                   <FiLogOut className="icon c-white mr-2 fsz-1" />
                   <span className="fw-600">Logout</span>
                 </button>

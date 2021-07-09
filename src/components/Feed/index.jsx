@@ -46,7 +46,7 @@ function Feed() {
       {loading ? (
         <span className="loader"></span>
       ) : posts.length === 0 ? (
-        <h3 className="fsz-2 c-white">No Feed Available, explore users!</h3>
+        <h3 className="fsz-2 c-white m-5 text-center">No Feed Available, explore users!</h3>
       ) : (
         posts.map((i) =>
           i.posts

@@ -11,6 +11,12 @@ export const createPost = createAsyncThunk("feed/creatPost", async (userThoughts
     const { data } = await axios.post(SERVER_URL + "/posts", userThoughts);
     return data;
 })
+export const likePost = createAsyncThunk("feed/likePost", async (userActionPayload) => {
+    const { postId, routeToTake } = userActionPayload;
+    console.log(userActionPayload);
+    const { data } = await axios.post(`${SERVER_URL}/posts/${postId}/${routeToTake}`);
+    return data;
+})
 
 export const commentOnPost = createAsyncThunk("feed/commentOnPost", async (commentData) => {
     console.log(commentData);
@@ -34,10 +40,10 @@ export const feedSlice = createSlice({
         setMessage: (state, action) => {
             state.message = action.payload;
         },
-        incrementCommentCount: (state, action) => {
-            const { postId } = action.payload;
-            state.posts.find(i => i.posts.find(j => j._id === postId && j.comments.push(postId)))
-        }
+        incrementStatCount: (state, action) => {
+            const { postId, data } = action.payload;
+            state.posts.find(i => i.posts.find(j => j._id === postId && j[data].push(postId)))
+        },
     },
     extraReducers: {
         [loadPosts.pending]: (state) => {
@@ -60,18 +66,22 @@ export const feedSlice = createSlice({
         [createPost.rejected]: (state) => {
             state.loading = false;
         },
-        [commentOnPost.pending]: (state) => {
-            state.loading = true;
-        },
         [commentOnPost.fulfilled]: (state, action) => {
             state.message = action.payload.message;
-            state.loading = false;
         },
         [commentOnPost.rejected]: (state) => {
-            state.loading = false;
+            state.message = action.payload.message
+
         },
+        [likePost.fulfilled]: (state, action) => {
+            state.message = action.payload.message;
+
+        },
+        [likePost.rejected]: (state) => {
+            state.message = action.payload.message;
+        }
     }
 });
 
-export const { addComment, setMessage, incrementCommentCount } = feedSlice.actions;
+export const { addComment, setMessage, incrementStatCount } = feedSlice.actions;
 export default feedSlice.reducer;

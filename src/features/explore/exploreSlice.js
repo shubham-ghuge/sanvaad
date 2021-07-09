@@ -6,6 +6,11 @@ export const getUsers = createAsyncThunk('explore/getUsers', async () => {
     return data;
 });
 
+export const followUser = createAsyncThunk('explore/followUser', async (user) => {
+    const { data } = await axios.post("https://sanvaad.herokuapp.com/users/followers", user);
+    return data;
+})
+
 const initialState = {
     loading: false,
     message: null,
@@ -20,7 +25,15 @@ export const exploreSlice = createSlice({
             state.users = state.users.filter(i => i.name.toLowerCase().includes(action.payload.toLowerCase()));
         },
         setUsers: (state, action) => {
-            state.users = action.payload
+            state.users = state.users.map(i => {
+                if (i._id === action.payload) {
+                    i.following = true;
+                    return i
+                } else return i
+            });
+        },
+        setMessage: (state, action) => {
+            state.message = action.payload
         }
     },
     extraReducers: {
@@ -35,9 +48,16 @@ export const exploreSlice = createSlice({
         [getUsers.rejected]: (state, action) => {
             state.message = action.payload.message;
             state.loading = false;
-        }
+        },
+        [followUser.fulfilled]: (state, action) => {
+            console.log(action.payload);
+            state.message = action.payload.message;
+        },
+        [followUser.rejected]: (state, action) => {
+            state.message = action.payload.message;
+        },
     }
 });
 
-export const { searchUser } = exploreSlice.actions;
+export const { searchUser, setMessage, setUsers } = exploreSlice.actions;
 export default exploreSlice.reducer;

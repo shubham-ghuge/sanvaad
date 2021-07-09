@@ -5,7 +5,6 @@ import { getNotifications } from "../../features/notification/notificationSlice"
 function Notification() {
   const { loading, notifications } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
-  console.log(notifications);
   useEffect(() => {
     dispatch(getNotifications());
   }, []);
