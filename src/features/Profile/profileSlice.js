@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { feedSlice } from "../feed/feedSlice";
 
 const SERVER_URL = "https://sanvaad.herokuapp.com"
 
@@ -32,6 +33,25 @@ const initialState = {
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
+    reducers: {
+        addCommentOnPost: (state, action) => {
+            console.log('here');
+            const { _id, text } = action.payload;
+            state.userPosts.posts.forEach((post) => {
+                if (post._id === _id) {
+                    post.comments.push({ _id: Date.now(), text })
+                }
+            })
+        },
+        incrementCountOnUserPost: (state, action) => {
+            const { _id, objKey } = action.payload;
+            state.userPosts.posts.forEach((post) => {
+                if (post._id === _id) {
+                    post[objKey].push(Date.now())
+                }
+            })
+        }
+    },
     extraReducers: {
         [getProfileData.pending]: (state) => {
             state.profileLoading = true;
@@ -63,5 +83,5 @@ export const profileSlice = createSlice({
         },
     }
 });
-
+export const { addCommentOnPost, incrementCountOnUserPost } = profileSlice.actions;
 export default profileSlice.reducer;

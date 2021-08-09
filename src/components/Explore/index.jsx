@@ -45,12 +45,14 @@ function Explore() {
       {loading ? (
         <span className="loader"></span>
       ) : users.length === 0 ? (
-        "no users found"
+        <h2 className="c-white text-center mt-4 fsz-3">No Users Found</h2>
       ) : (
         users.map((i, idx) => (
           <div className="user-list" key={idx}>
-            <FaRegUserCircle />
-            <p>{i.name}</p>
+            <div className="d-flex ai-center">
+              <FaRegUserCircle />
+              <p className="ml-2">{i.name}</p>
+            </div>
             <button
               onClick={() => followHandler(i._id)}
               className={`${i.following && "disable"}`}

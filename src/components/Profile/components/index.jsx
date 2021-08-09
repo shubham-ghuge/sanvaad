@@ -16,7 +16,7 @@ function UserPosts({ data }) {
       ) : (
         data.posts
           .map((j) => (
-            <Card name={data.name} key={j._id} data={j} lock={true} />
+            <Card name={data.name} userPosts={true} key={j._id} data={j} />
           ))
           .reverse()
       )}

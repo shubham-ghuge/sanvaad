@@ -24,6 +24,7 @@ export const commentOnPost = createAsyncThunk("feed/commentOnPost", async (comme
 
 const initialState = {
     loading: false,
+    postLoading: false,
     message: null,
     posts: []
 }
@@ -55,25 +56,23 @@ export const feedSlice = createSlice({
             state.loading = false;
         },
         [createPost.pending]: (state) => {
-            state.loading = true;
+            state.postLoading = true;
         },
         [createPost.fulfilled]: (state, action) => {
             state.message = action.payload.message;
-            state.loading = false;
+            state.postLoading = false;
         },
         [createPost.rejected]: (state) => {
-            state.loading = false;
+            state.postLoading = false;
         },
         [commentOnPost.fulfilled]: (state, action) => {
             state.message = action.payload.message;
         },
         [commentOnPost.rejected]: (state) => {
             state.message = action.payload.message
-
         },
         [likePost.fulfilled]: (state, action) => {
             state.message = action.payload.message;
-
         },
         [likePost.rejected]: (state) => {
             state.message = action.payload.message;

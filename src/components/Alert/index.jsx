@@ -11,7 +11,7 @@ function Alert({ onClose, message, color = "danger" }) {
 
   return (
     <div className="alert d-flex jc-center">
-      <div className={`alert-${color} w-sm-30 outline-${color}`}>
+      <div className={`alert-${color} w-sm-30 w-60 outline-${color}`}>
         <div className="alert-content">
           <p> {message}</p>
         </div>

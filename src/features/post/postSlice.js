@@ -28,6 +28,12 @@ export const postSlice = createSlice({
             state.likes = likes.length;
             state.comments = comments;
             state.loading = false;
+        },
+        incrementStats: (state, action) => {
+            state[action.payload].push('dummy text')
+        },
+        addComment: (state, action) => {
+            state.comments.push({ _id: Date.now(), text: action.payload });
         }
     },
     extraReducers: {
@@ -47,5 +53,5 @@ export const postSlice = createSlice({
         },
     }
 });
-export const { getFromFetchedPosts } = postSlice.actions;
+export const { getFromFetchedPosts, incrementStats, addComment } = postSlice.actions;
 export default postSlice.reducer;
