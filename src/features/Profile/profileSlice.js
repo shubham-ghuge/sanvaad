@@ -15,6 +15,7 @@ export const getUsersPosts = createAsyncThunk('profile/getUsersPosts', async () 
 
 const initialState = {
     loading: false,
+    profileLoading: false,
     message: null,
     profileData: {
         name: "",
@@ -33,7 +34,7 @@ export const profileSlice = createSlice({
     initialState,
     extraReducers: {
         [getProfileData.pending]: (state) => {
-            state.loading = true;
+            state.profileLoading = true;
         },
         [getProfileData.fulfilled]: (state, action) => {
             const { name, email, posts, followers } = action.payload.response;
@@ -41,11 +42,11 @@ export const profileSlice = createSlice({
             state.profileData.email = email;
             state.profileData.followers = followers;
             state.profileData.posts = posts.length;
-            state.loading = false;
+            state.profileLoading = false;
         },
         [getProfileData.rejected]: (state) => {
             state.message = action.payload.message;
-            state.loading = true;
+            state.profileLoading = true;
         },
         [getUsersPosts.pending]: (state) => {
             state.loading = true;

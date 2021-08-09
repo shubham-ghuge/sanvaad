@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import {
   commentOnPost,
   incrementStatCount,
@@ -10,13 +9,13 @@ import { FaHandsHelping, FaRegUserCircle } from "react-icons/fa";
 import { BiCommentDots } from "react-icons/bi";
 import { IoMdHeartHalf } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 function Card({
   name,
   data: { text, _id, comments, likes, support },
   lock = false,
 }) {
-  let navigate = useNavigate();
   const [showComment, setShowComment] = useState(false);
   const [commentInput, setCommentInput] = useState("");
   const dispatch = useDispatch();
@@ -41,9 +40,9 @@ function Card({
         <FaRegUserCircle />
         <p>{name}</p>
       </div>
-      <p className="text" onClick={() => navigate(`/feed/${_id}`)}>
+      <Link to={`/feed/${_id}`} state={{ from: name }} className="text">
         {text}
-      </p>
+      </Link>
       <div className={`actions d-flex ${lock && "disable"}`}>
         <button onClick={() => setShowComment((curr) => !curr)}>
           <BiCommentDots />
@@ -77,7 +76,7 @@ function Card({
             className="btn-primary d-flex jc-center ai-center"
           >
             <RiSendPlaneFill className="icon c-white" />
-            <span className="d-none d-sm-block">post</span>
+            <span className="d-none d-sm-block">send</span>
           </button>
         </form>
       )}

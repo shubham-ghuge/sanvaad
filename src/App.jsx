@@ -8,11 +8,11 @@ import { Feed } from "./components/Feed";
 import { Notification } from "./components/Notifications";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Profile } from "./components/Profile";
-import { UserPosts } from "./components/userPosts";
 import { Post } from "./components/Post";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logout } from "./features/auth/authSlice";
+import { Error } from "./components/404";
 
 function App() {
   let navigate = useNavigate();
@@ -31,13 +31,13 @@ function App() {
         <Route path="/" element={<Auth />}>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <PrivateRoute path="/feed" element={<Feed />} />
-          <PrivateRoute path="/notifications" element={<Notification />} />
-          <PrivateRoute path="/explore" element={<Explore />} />
-          <PrivateRoute path="/profile" element={<Profile />} />
-          <PrivateRoute path="/posts" element={<UserPosts />} />
-          <PrivateRoute path="/feed/:postId" element={<Post />} />
         </Route>
+        <PrivateRoute path="/feed" element={<Feed />} />
+        <PrivateRoute path="/notifications" element={<Notification />} />
+        <PrivateRoute path="/explore" element={<Explore />} />
+        <PrivateRoute path="/profile" element={<Profile />} />
+        <PrivateRoute path="/feed/:postId" element={<Post />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

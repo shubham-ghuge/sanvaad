@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { HiOutlineHome } from "react-icons/hi";
-import { FaFeather } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { IoNotificationsSharp } from "react-icons/io5";
 
 function Navbar() {
   return (
@@ -16,9 +16,9 @@ function Navbar() {
         <MdExplore className="icon" />
         <span>explore</span>
       </NavLink>
-      <NavLink to="/posts">
-        <FaFeather className="icon" />
-        <span>posts</span>
+      <NavLink to="/notifications">
+        <IoNotificationsSharp className="icon" />
+        <span>Notifications</span>
       </NavLink>
       <NavLink to="/profile">
         <RiUserSettingsLine className="icon" />

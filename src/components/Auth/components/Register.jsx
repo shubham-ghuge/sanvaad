@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser, setMessage } from "../../../features/auth/authSlice";
 import { Alert } from "../../Alert";
+import logo from "../../../assets/logo.svg";
 
 function Register() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function Register() {
     <div className="auth-form">
       <form onSubmit={(e) => registerFormHandler(e)}>
         <div className="d-flex ai-center mb-7">
-          <img src="../src/assets/logo.svg" className="h-10" alt="logo" />
+          <img src={logo} className="h-10" alt="logo" />
           <p className="c-white fw-600 ml-4 fsz-3">SANVAAD</p>
         </div>
         {message && (

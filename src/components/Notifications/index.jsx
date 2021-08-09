@@ -10,7 +10,6 @@ function Notification() {
   }, []);
   return (
     <div className="p-4">
-      <h3 className="c-white fsz-2 ml-5">Notifications</h3>
       {loading ? (
         <span className="loader"></span>
       ) : notifications.length === 0 ? (

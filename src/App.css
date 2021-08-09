@@ -187,7 +187,11 @@ header .icon {
 
 .user-post .text {
   font-size: 1rem;
+  color: #fff;
   font-weight: 300;
+}
+.user-post .text:hover {
+  text-decoration: none;
 }
 .user-post button {
   background: transparent;
@@ -242,7 +246,10 @@ header .icon {
 .comment p {
   margin-top: var(--p-2);
 }
-
+.create-post .btn-primary {
+  background-color: var(--c-primary-200) !important;
+  color: #fff !important;
+}
 .user-info .header {
   border: 0;
 }

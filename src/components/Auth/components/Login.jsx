@@ -8,6 +8,7 @@ import {
   setToken,
 } from "../../../features/auth/authSlice";
 import { Alert } from "../../Alert";
+import logo from "../../../assets/logo.svg";
 
 function Login() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function Login() {
           <Alert message={message} onClose={() => dispatch(setMessage(null))} />
         )}
         <div className="d-flex ai-center mb-7">
-          <img src="../src/assets/logo.svg" className="h-10" alt="logo" />
+          <img src={logo} className="h-10" alt="logo" />
           <p className="c-white fw-600 ml-4 fsz-3">SANVAAD</p>
         </div>
         <label>
@@ -75,7 +76,10 @@ function Login() {
         <button
           className="btn-reset c-white mb-4"
           onClick={() =>
-            setUserInput({ email: "indianFarmer@work.india", password: "aaaaaa" })
+            setUserInput({
+              email: "indianFarmer@work.india",
+              password: "aaaaaa",
+            })
           }
         >
           Demo credentials
