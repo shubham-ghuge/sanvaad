@@ -5,7 +5,7 @@ import { Actions } from "./components/Actions";
 
 function Card({
   name,
-  data: { text, _id, comments, likes, support },
+  data: { text, _id, comments, likes, support, author = "" },
   lock = false,
   userPosts = false,
 }) {
@@ -22,6 +22,7 @@ function Card({
         lock={lock}
         _id={_id}
         userPosts={userPosts}
+        author={author}
         stats={{
           totalComments: comments.length,
           totalLikes: likes.length,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import "./App.css";
 import { Auth } from "./components/Auth";
@@ -10,20 +10,37 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { Profile } from "./components/Profile";
 import { Post } from "./components/Post";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { logout } from "./features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, setToken } from "./features/auth/authSlice";
 import { Error } from "./components/404";
 
 function App() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loggedInStatus } = useSelector((state) => state.auth);
+
   axios.interceptors.response.use(undefined, function (error) {
     if (error.response.status === 401) {
       dispatch(logout());
-      navigate("/");
     }
     return Promise.reject(error);
   });
+
+  useEffect(() => {
+    const { isUserLoggedIn, token, userName } =
+      JSON.parse(localStorage.getItem("login")) || {};
+    if (isUserLoggedIn) {
+      dispatch(setToken({ token, userName }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loggedInStatus) {
+      navigate("/feed");
+    } else {
+      navigate("/");
+    }
+  }, [loggedInStatus]);
 
   return (
     <div className="App">

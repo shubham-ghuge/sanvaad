@@ -1,40 +1,19 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  loginUser,
-  setMessage,
-  setToken,
-} from "../../../features/auth/authSlice";
+import { Link } from "react-router-dom";
+import { loginUser, setMessage } from "../../../features/auth/authSlice";
 import { Alert } from "../../Alert";
 import logo from "../../../assets/logo.svg";
 
 function Login() {
   const dispatch = useDispatch();
-  let navigate = useNavigate();
-  const { loggedInStatus, loading, message } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, message } = useSelector((state) => state.auth);
   const [userInput, setUserInput] = useState({ email: "", password: "" });
 
   function loginFormHandler(event) {
     event.preventDefault();
     dispatch(loginUser(userInput));
   }
-  useEffect(() => {
-    const { isUserLoggedIn, token } =
-      JSON.parse(localStorage.getItem("login")) || {};
-    if (isUserLoggedIn) {
-      dispatch(setToken(token));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (loggedInStatus) {
-      navigate("/feed");
-    }
-  }, [loggedInStatus]);
 
   return (
     <div className="auth-form">

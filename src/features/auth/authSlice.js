@@ -1,15 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const SERVER_URL = "https://sanvaad.herokuapp.com/users"
+import { API_URL } from "../../base";
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (userDetails) => {
-    const { data } = await axios.post(`${SERVER_URL}/register`, userDetails);
+    const { data } = await axios.post(`${API_URL}/users/register`, userDetails);
     return data;
 })
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (userDetails) => {
-    const { data } = await axios.post(`${SERVER_URL}/login`, userDetails);
+    const { data } = await axios.post(`${API_URL}/users/login`, userDetails);
     return data;
 })
 
@@ -18,6 +17,7 @@ const initialState = {
     message: null,
     loggedInStatus: false,
     success: false,
+    userName: ""
 }
 
 export const AuthSlice = createSlice({
@@ -29,13 +29,12 @@ export const AuthSlice = createSlice({
         },
         setToken: (state, action) => {
             state.loggedInStatus = true;
-            state.token = action.payload;
-            axios.defaults.headers.common["Authorization"] = action.payload;
+            state.userName = action.payload.userName;
+            axios.defaults.headers.common["Authorization"] = action.payload.token;
         },
         logout: (state) => {
             localStorage.removeItem("login");
             axios.defaults.headers.common["Authorization"] = null;
-            state.token = null;
             state.loggedInStatus = false;
         }
     },
@@ -61,6 +60,7 @@ export const AuthSlice = createSlice({
                 localStorage.setItem("login", JSON.stringify({ token, isUserLoggedIn: true, userName }));
             }
             axios.defaults.headers.common["Authorization"] = token;
+            state.userName = userName;
             state.loggedInStatus = success;
             state.message = message;
             state.loading = false;

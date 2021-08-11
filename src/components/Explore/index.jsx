@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,6 @@ import { Alert } from "../Alert";
 import {
   followUser,
   getUsers,
-  searchUser,
   setMessage,
   setUsers,
 } from "../../features/explore/exploreSlice";
@@ -14,11 +13,20 @@ import {
 function Explore() {
   const dispatch = useDispatch();
   const { loading, users, message } = useSelector((state) => state.explore);
+  const [filteredData, setFilteredData] = useState([]);
+  const { userName } = useSelector((state) => state.auth);
+
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  function findUser(event) {
-    return dispatch(searchUser(event.target.value));
+  useEffect(() => {
+    setFilteredData(users);
+  }, [users]);
+  function findUser(text) {
+    const data = users.filter((i) =>
+      i.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredData(data);
   }
   function followHandler(id) {
     const data = { user: id };
@@ -31,7 +39,7 @@ function Explore() {
         <input
           type="search"
           placeholder="search users"
-          onChange={(e) => findUser(e)}
+          onChange={(e) => findUser(e.target.value)}
         />
         <button
           type="submit"
@@ -44,23 +52,23 @@ function Explore() {
 
       {loading ? (
         <span className="loader"></span>
-      ) : users.length === 0 ? (
+      ) : filteredData.length === 0 ? (
         <h2 className="c-white text-center mt-4 fsz-3">No Users Found</h2>
       ) : (
-        users.map((i, idx) => (
-          <div className="user-list" key={idx}>
-            <div className="d-flex ai-center">
-              <FaRegUserCircle />
-              <p className="ml-2">{i.name}</p>
-            </div>
-            <button
-              onClick={() => followHandler(i._id)}
-              className={`${i.following && "disable"}`}
-            >
-              {i.following ? "following" : "follow"}
-            </button>
-          </div>
-        ))
+        filteredData.map(
+          (i, idx) =>
+            i.name !== userName && (
+              <div className="user-list" key={idx}>
+                <div className="d-flex ai-center">
+                  <FaRegUserCircle />
+                  <p className="ml-2">{i.name}</p>
+                </div>
+                <button onClick={() => followHandler(i._id)}>
+                  {i.following ? "following" : "follow"}
+                </button>
+              </div>
+            )
+        )
       )}
       {message && (
         <Alert

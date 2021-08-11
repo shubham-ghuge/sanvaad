@@ -1,24 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+import { API_URL } from "../../base";
 
-const SERVER_URL = "https://sanvaad.herokuapp.com"
 
 export const loadPosts = createAsyncThunk("feed/loadPosts", async () => {
-    const { data } = await axios.get(SERVER_URL + "/feed");
+    const { data } = await axios.get(API_URL + "/feed");
     return data;
 })
 export const createPost = createAsyncThunk("feed/creatPost", async (userThoughts) => {
-    const { data } = await axios.post(SERVER_URL + "/posts", userThoughts);
+    const { data } = await axios.post(API_URL + "/posts", userThoughts);
     return data;
 })
 export const likePost = createAsyncThunk("feed/likePost", async (userActionPayload) => {
-    const { postId, routeToTake } = userActionPayload;
-    const { data } = await axios.post(`${SERVER_URL}/posts/${postId}/${routeToTake}`);
+    const { postId, routeToTake, authorId } = userActionPayload;
+    const { data } = await axios.post(`${API_URL}/posts/${postId}/${routeToTake}`, authorId);
     return data;
 })
 
 export const commentOnPost = createAsyncThunk("feed/commentOnPost", async (commentData) => {
-    const { data } = await axios.post(SERVER_URL + "/comments", commentData);
+    const { data } = await axios.post(API_URL + "/comments", commentData);
     return data;
 })
 

@@ -19,14 +19,14 @@ import { IoMdHeartHalf } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { addComment, incrementStats } from "../../../features/post/postSlice";
 
-function Actions({ lock, stats, _id, userPosts }) {
+function Actions({ lock, stats, _id, userPosts, author }) {
   const dispatch = useDispatch();
   const [commentInput, setCommentInput] = useState("");
   const [showComment, setShowComment] = useState(false);
   const { message } = useSelector((state) => state.feed);
   function commentHandler(event) {
     event.preventDefault();
-    dispatch(commentOnPost({ postId: _id, text: commentInput }));
+    dispatch(commentOnPost({ postId: _id, text: commentInput, author }));
     dispatch(incrementStatCount({ postId: _id, data: "comments" }));
     if (lock) {
       dispatch(addComment(commentInput));
@@ -37,24 +37,15 @@ function Actions({ lock, stats, _id, userPosts }) {
     setCommentInput(" ");
     setShowComment(false);
   }
-  function likeHandler() {
-    dispatch(likePost({ postId: _id, routeToTake: "likes" }));
-    dispatch(incrementStatCount({ postId: _id, data: "likes" }));
+  function actionHandler(userAction) {
+    const authorId = { author };
+    dispatch(likePost({ postId: _id, routeToTake: userAction, authorId }));
+    dispatch(incrementStatCount({ postId: _id, data: userAction }));
     if (lock) {
-      dispatch(incrementStats("likes"));
+      dispatch(incrementStats(userAction));
     }
     if (userPosts) {
-      dispatch(incrementCountOnUserPost({ _id, objKey: "likes" }));
-    }
-  }
-  function supportHandler() {
-    dispatch(likePost({ postId: _id, routeToTake: "support" }));
-    dispatch(incrementStatCount({ postId: _id, data: "support" }));
-    if (lock) {
-      dispatch(incrementStats("support"));
-    }
-    if (userPosts) {
-      dispatch(incrementCountOnUserPost({ _id, objKey: "support" }));
+      dispatch(incrementCountOnUserPost({ _id, objKey: userAction }));
     }
   }
   return (
@@ -65,12 +56,12 @@ function Actions({ lock, stats, _id, userPosts }) {
           <span className="c-white mr-2">{stats.totalComments}</span>
           <span className="text">comments</span>
         </button>
-        <button onClick={likeHandler}>
+        <button onClick={() => actionHandler("likes")}>
           <IoMdHeartHalf />
           <span className="c-white mr-2">{stats.totalLikes}</span>
           <span className="text">likes</span>
         </button>
-        <button onClick={supportHandler}>
+        <button onClick={() => actionHandler("support")}>
           <FaHandsHelping />
           <span className="c-white mr-2">{stats.totalSupport}</span>
           <span className="text">support</span>

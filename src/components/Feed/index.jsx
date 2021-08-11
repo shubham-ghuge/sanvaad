@@ -8,8 +8,9 @@ function Feed() {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState({ text: "" });
   const { loading, posts, postLoading } = useSelector((state) => state.feed);
+  
   useEffect(() => {
-    posts.length === 0 && dispatch(loadPosts());
+    dispatch(loadPosts());
   }, []);
 
   function postFormHandler(event) {
@@ -44,9 +45,8 @@ function Feed() {
           )}
         </button>
       </form>
-      {loading ? (
-        <span className="loader"></span>
-      ) : posts.length === 0 ? (
+      {loading && <span className="loader"></span>}
+      {posts.length === 0 ? (
         <h3 className="fsz-2 c-white m-5 text-center">
           No Feed Available, explore users!
         </h3>

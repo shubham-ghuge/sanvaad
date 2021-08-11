@@ -8,17 +8,19 @@ function Notification() {
   useEffect(() => {
     dispatch(getNotifications());
   }, []);
+
   return (
     <div className="p-4">
       {loading ? (
         <span className="loader"></span>
-      ) : notifications.length === 0 ? (
+      ) : notifications && notifications.length === 0 ? (
         <h2 className="c-white fsz-2">0 notifications</h2>
       ) : (
         notifications
           .map((i, idx) => (
             <div className="comment" key={idx}>
-              {i}
+              <span className="fw-600 mr-2">{i.name}</span>
+              {i.text}
             </div>
           ))
           .reverse()

@@ -1,35 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+import { API_URL } from "../../base";
 
 export const getUsers = createAsyncThunk('explore/getUsers', async () => {
-    const { data } = await axios.get("https://sanvaad.herokuapp.com/users");
+    const { data } = await axios.get(`${API_URL}/users`);
     return data;
 });
 
 export const followUser = createAsyncThunk('explore/followUser', async (user) => {
-    const { data } = await axios.post("https://sanvaad.herokuapp.com/users/followers", user);
+    const { data } = await axios.post(`${API_URL}/users/followers`, user);
     return data;
 })
 
 const initialState = {
     loading: false,
     message: null,
-    users: []
+    users: [],
 }
 
 export const exploreSlice = createSlice({
     name: "explore",
     initialState,
     reducers: {
-        searchUser: (state, action) => {
-            state.users = state.users.filter(i => i.name.toLowerCase().includes(action.payload.toLowerCase()));
-        },
         setUsers: (state, action) => {
             state.users = state.users.map(i => {
                 if (i._id === action.payload) {
-                    i.following = true;
-                    return i
-                } else return i
+                    i.following = !i.following;
+                }
+                return i
             });
         },
         setMessage: (state, action) => {
@@ -58,5 +56,5 @@ export const exploreSlice = createSlice({
     }
 });
 
-export const { searchUser, setMessage, setUsers } = exploreSlice.actions;
+export const { setMessage, setUsers } = exploreSlice.actions;
 export default exploreSlice.reducer;

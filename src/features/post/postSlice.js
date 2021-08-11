@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
-
-const SERVER_URL = "https://sanvaad.herokuapp.com"
+import { API_URL } from "../../base";
 
 export const getThePost = createAsyncThunk('post/getThePost', async (postId) => {
-    const { data } = await axios.get(`${SERVER_URL}/posts/${postId}`);
+    const { data } = await axios.get(`${API_URL}/posts/${postId}`);
     return data;
 })
 const initialState = {

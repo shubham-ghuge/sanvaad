@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { feedSlice } from "../feed/feedSlice";
+import { API_URL } from "../../base";
 
-const SERVER_URL = "https://sanvaad.herokuapp.com"
 
 export const getProfileData = createAsyncThunk('profile/getProfileData', async () => {
-    const { data } = await axios.get(SERVER_URL + "/users/profile")
+    const { data } = await axios.get(API_URL + "/users/profile")
     return data;
 });
 
 export const getUsersPosts = createAsyncThunk('profile/getUsersPosts', async () => {
-    const { data } = await axios.get(SERVER_URL + "/posts")
+    const { data } = await axios.get(API_URL + "/posts")
     return data;
 })
 
@@ -35,7 +34,6 @@ export const profileSlice = createSlice({
     initialState,
     reducers: {
         addCommentOnPost: (state, action) => {
-            console.log('here');
             const { _id, text } = action.payload;
             state.userPosts.posts.forEach((post) => {
                 if (post._id === _id) {
