@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost, loadPosts, setMessage } from "../../features/feed/feedSlice";
 import { Card } from "../Card";
 import { RiSendPlaneFill } from "react-icons/ri";
+import { Alert } from "../Alert";
 
 function Feed() {
   const dispatch = useDispatch();
