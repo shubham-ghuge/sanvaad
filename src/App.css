@@ -154,6 +154,7 @@ header img {
 }
 .create-post .btn-primary {
   border-radius: var(--br-2);
+  margin-left: var(--p-2);
 }
 
 .user-info,
