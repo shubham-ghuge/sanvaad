@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, loadPosts } from "../../features/feed/feedSlice";
+import { createPost, loadPosts, setMessage } from "../../features/feed/feedSlice";
 import { Card } from "../Card";
 import { RiSendPlaneFill } from "react-icons/ri";
 
 function Feed() {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState({ text: "" });
-  const { loading, posts, postLoading } = useSelector((state) => state.feed);
-  
+  const { loading, posts, postLoading, message } = useSelector(
+    (state) => state.feed
+  );
+
   useEffect(() => {
     dispatch(loadPosts());
   }, []);
@@ -56,6 +58,13 @@ function Feed() {
             .map((j) => <Card name={i.name} key={j._id} data={j} />)
             .reverse()
         )
+      )}
+      {message && (
+        <Alert
+          message={message}
+          color="success"
+          onClose={() => dispatch(setMessage(null))}
+        />
       )}
     </div>
   );
