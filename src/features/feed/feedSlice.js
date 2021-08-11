@@ -26,7 +26,8 @@ const initialState = {
     loading: false,
     postLoading: false,
     message: null,
-    posts: []
+    posts: [],
+    postMessage: null
 }
 
 export const feedSlice = createSlice({
@@ -37,7 +38,7 @@ export const feedSlice = createSlice({
             state.posts.push(action.payload);
         },
         setMessage: (state, action) => {
-            state.message = action.payload;
+            state[action.payload] = null;
         },
         incrementStatCount: (state, action) => {
             const { postId, data } = action.payload;
@@ -59,7 +60,7 @@ export const feedSlice = createSlice({
             state.postLoading = true;
         },
         [createPost.fulfilled]: (state, action) => {
-            state.message = action.payload.message;
+            state.postMessage = action.payload.message;
             state.postLoading = false;
         },
         [createPost.rejected]: (state) => {

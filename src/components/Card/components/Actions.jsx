@@ -92,7 +92,7 @@ function Actions({ lock, stats, _id, userPosts, author }) {
         <Alert
           message={message}
           color="success"
-          onClose={() => dispatch(setMessage(null))}
+          onClose={() => dispatch(setMessage("message"))}
         />
       )}
     </>

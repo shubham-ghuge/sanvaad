@@ -14,7 +14,7 @@ function Notification() {
       {loading ? (
         <span className="loader"></span>
       ) : notifications && notifications.length === 0 ? (
-        <h2 className="c-white fsz-2">0 notifications</h2>
+        <h2 className="c-white text-center fsz-2">0 notifications</h2>
       ) : (
         notifications
           .map((i, idx) => (

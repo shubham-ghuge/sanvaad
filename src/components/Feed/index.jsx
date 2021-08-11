@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, loadPosts, setMessage } from "../../features/feed/feedSlice";
+import {
+  createPost,
+  loadPosts,
+  setMessage,
+} from "../../features/feed/feedSlice";
 import { Card } from "../Card";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { Alert } from "../Alert";
@@ -8,7 +12,7 @@ import { Alert } from "../Alert";
 function Feed() {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState({ text: "" });
-  const { loading, posts, postLoading, message } = useSelector(
+  const { loading, posts, postLoading, postMessage } = useSelector(
     (state) => state.feed
   );
 
@@ -49,7 +53,7 @@ function Feed() {
         </button>
       </form>
       {loading && <span className="loader"></span>}
-      {posts.length === 0 ? (
+      {posts && posts.length === 0 ? (
         <h3 className="fsz-2 c-white m-5 text-center">
           No Feed Available, explore users!
         </h3>
@@ -60,11 +64,11 @@ function Feed() {
             .reverse()
         )
       )}
-      {message && (
+      {postMessage && (
         <Alert
-          message={message}
+          message={postMessage}
           color="success"
-          onClose={() => dispatch(setMessage(null))}
+          onClose={() => dispatch(setMessage("postMessage"))}
         />
       )}
     </div>
