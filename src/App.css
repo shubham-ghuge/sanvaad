@@ -6,15 +6,6 @@ body {
   overflow-x: hidden;
 }
 
-.notification .badge {
-  position: absolute;
-  top: 20%;
-  right: 30%;
-  height: 10px;
-  width: 10px;
-  background-color: var(--c-primary-200) !important;
-  border-radius: 50%;
-}
 .disable {
   pointer-events: none;
 }
@@ -33,7 +24,7 @@ button {
 }
 
 .margin {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 .icon {
@@ -98,26 +89,31 @@ header {
   top: 0%;
   width: 100vw;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #171821;
-  color: #fff;
   padding: var(--p-2);
   font-weight: 600;
   z-index: 1;
-  font-size: var(--fsz-2);
-  text-transform: capitalize;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+header a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+header a:hover {
+  text-decoration: none;
 }
 header img {
   height: 40px;
   margin-right: var(--p-2);
 }
 .feed {
-  margin: 0 0 5rem;
+  margin: 2rem 0 5rem;
 }
 .loader {
-  margin: 4rem auto;
+  margin: 1rem auto;
   --custom-height: 40px;
   --color: #7448ff;
 }
@@ -159,7 +155,6 @@ header img {
 
 .user-info,
 .user-post {
-  margin: var(--p-4) auto 0;
   background-color: #262837;
   border-radius: var(--br-1);
   border: 0.055rem solid #565353;
@@ -168,6 +163,9 @@ header img {
   width: 95%;
   color: #fffeff;
   cursor: pointer;
+}
+.user-post {
+  margin: var(--p-4) auto 0;
 }
 .user-info > *,
 .user-post > * {
@@ -227,6 +225,7 @@ header img {
   color: #fff;
 }
 
+.notification,
 .comment,
 .user-list {
   width: 95%;
@@ -235,8 +234,12 @@ header img {
   background-color: #262837;
   border-radius: var(--br-1);
   border: 0.055rem solid #565353;
-  display: flex;
   box-sizing: border-box;
+}
+
+.comment,
+.user-list {
+  display: flex;
 }
 
 .comment {
@@ -284,6 +287,9 @@ header img {
 }
 
 @media all and (min-width: 600px) {
+  .feed {
+    margin: 5rem 0 5rem;
+  }
   header img {
     height: 50px;
   }

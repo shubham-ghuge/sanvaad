@@ -5,8 +5,8 @@ import { Card } from "../../Card";
 function UserPosts({ data }) {
   const { loading } = useSelector((state) => state.profile);
   return (
-    <div className="flex-column feed">
-      <h2 className="c-white text-center fsz-3">Your Posts</h2>
+    <div className="flex-column">
+      <h2 className="c-white text-center mt-4">Your Posts</h2>
       {loading ? (
         <span className="loader"></span>
       ) : data.posts.length === 0 ? (
@@ -20,7 +20,9 @@ function UserPosts({ data }) {
           ))
           .reverse()
       )}
+      <div className="margin"></div>
     </div>
+    
   );
 }
 export { UserPosts };

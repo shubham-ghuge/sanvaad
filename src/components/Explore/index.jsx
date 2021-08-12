@@ -34,7 +34,7 @@ function Explore() {
     dispatch(setUsers(id));
   }
   return (
-    <>
+    <div className="feed">
       <div className="d-flex create-post">
         <input
           type="search"
@@ -77,7 +77,7 @@ function Explore() {
           onClose={() => dispatch(setMessage(null))}
         />
       )}
-    </>
+    </div>
   );
 }
 export { Explore };

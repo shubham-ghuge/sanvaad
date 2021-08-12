@@ -52,8 +52,13 @@ function Feed() {
           )}
         </button>
       </form>
-      {loading && <span className="loader"></span>}
-      {posts && posts.length === 0 ? (
+      {loading && (
+        <div className="flex-column jc-center ai-center">
+          <span className="loader"></span>
+          <p className="c-white">Breathe...</p>
+        </div>
+      )}
+      {!loading && posts.length === 0 ? (
         <h3 className="fsz-2 c-white m-5 text-center">
           No Feed Available, explore users!
         </h3>

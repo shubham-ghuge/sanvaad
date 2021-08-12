@@ -25,7 +25,7 @@ function Profile() {
         {profileLoading ? (
           <span className="loader"></span>
         ) : (
-          <div className="user-info">
+          <div className="user-info mt-2 mx-auto">
             {profileData && (
               <UserInfo
                 email={profileData.email}
