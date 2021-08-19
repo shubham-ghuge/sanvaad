@@ -10,9 +10,7 @@ import { UserInfo } from "./components/UserInfo";
 function Profile() {
   const dispatch = useDispatch();
 
-  const { profileLoading, profileData, userPosts } = useSelector(
-    (state) => state.profile
-  );
+  const { profileData, userPosts } = useSelector((state) => state.profile);
 
   useEffect(() => {
     profileData.name === "" && dispatch(getProfileData());
@@ -22,20 +20,16 @@ function Profile() {
   return (
     <>
       <div className="flex-column">
-        {profileLoading ? (
-          <span className="loader"></span>
-        ) : (
-          <div className="user-info mt-2 mx-auto">
-            {profileData && (
-              <UserInfo
-                email={profileData.email}
-                followersCount={profileData.followers.length}
-                name={profileData.name}
-                posts={profileData.posts}
-              />
-            )}
-          </div>
-        )}
+        <div className="user-info mt-2 mx-auto">
+          {profileData && (
+            <UserInfo
+              email={profileData.email}
+              followersCount={profileData.followers.length}
+              name={profileData.name}
+              posts={profileData.posts}
+            />
+          )}
+        </div>
       </div>
       <UserPosts data={userPosts} />
     </>
